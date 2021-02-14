@@ -135,6 +135,51 @@ namespace TP3.Views
             return View(booksUsersVm.ToList());
         }
 
+        public ActionResult SearchWithParam()
+        {
+            if (Session["userId"] == null)
+            {
+                return RedirectToAction("Index", "Select");
+            }
+            User userData = db.Users.Find(Session["userId"]);
+            if (userData.CurrentRole.Name.ToLower() != "customer")
+            {
+                return RedirectToAction("Index", "Select");
+            }
+            var users = db.Users.Where(x => x.CurrentRole.Name == "Seller");
+            List<BookUserVM> booksUsersVm = new List<BookUserVM>();
+            string name = Request.QueryString["name"];
+            foreach (User user in users)
+            {
+                foreach (Book book in user.Books)
+                {
+                    if (string.IsNullOrEmpty(name)){
+                        BookUserVM bookUserVM = new BookUserVM();
+                        bookUserVM.idBook = book.Id;
+                        bookUserVM.idUser = user.Id;
+                        bookUserVM.lastname = user.Lastname;
+                        bookUserVM.firstname = user.Firstname;
+                        bookUserVM.name = book.Name;
+                        bookUserVM.nbPage = book.NbPage;
+                        bookUserVM.price = book.Price;
+                        booksUsersVm.Add(bookUserVM);
+                    } else if (book.Name.Contains(name))
+                    {
+                        BookUserVM bookUserVM = new BookUserVM();
+                        bookUserVM.idBook = book.Id;
+                        bookUserVM.idUser = user.Id;
+                        bookUserVM.lastname = user.Lastname;
+                        bookUserVM.firstname = user.Firstname;
+                        bookUserVM.name = book.Name;
+                        bookUserVM.nbPage = book.NbPage;
+                        bookUserVM.price = book.Price;
+                        booksUsersVm.Add(bookUserVM);
+                    }
+                }
+            }
+            return View("Search", booksUsersVm.ToList());
+        }
+
         public ActionResult Buy()
         {
             string idBook = Request.QueryString["idBook"];

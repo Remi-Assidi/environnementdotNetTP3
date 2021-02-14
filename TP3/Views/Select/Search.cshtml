@@ -5,9 +5,14 @@
 }
 
 <h2>Search</h2>
+<form action="/Select/SearchWithParam">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" value=""><br>
+    <input type="submit" value="Search">
+</form>
 
-
-@foreach (var item in Model){
+@foreach (var item in Model)
+{
     <div class="card">
         <img class="card-img-top" src="../picture/book.jpg" alt="Card image cap">
         <div class="card-block">
