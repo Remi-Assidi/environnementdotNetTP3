@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TP3.Models.Book>
+
+@{
+    ViewBag.Title = "Add book seller";
+}
+
+<h2>Buy books</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NbPage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NbPage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+<form action="/Select/AddBookSeller" method="post">
+    <fieldset>
+        <legend>Add Book</legend>
+        <div>
+            <label for="Name">Name:</label>
+            <input type="text" name="Name" value="" />
+        </div>
+        <div>
+            <label for="NbPage">NbPage:</label>
+            <input type="number" name="NbPage" value="" />
+        </div>
+        <div>
+            <label for="Price">Price:</label>
+            <input type="number" name="Price" value="" />
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Add" class="submit" />
+        </div>
+    </fieldset>
+</form>

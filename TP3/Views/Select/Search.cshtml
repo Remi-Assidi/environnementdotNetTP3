@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TP3.Models.BookUserVM>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+
+@foreach (var item in Model){
+    <div class="card">
+        <img class="card-img-top" src="../picture/book.jpg" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title">
+                @Html.DisplayFor(modelItem => item.name)
+            </h4>
+            <p class="card-text">
+                @Html.DisplayFor(modelItem => item.nbPage) pages => @Html.DisplayFor(modelItem => item.price) $
+            </p>
+            <a href="/Select/Buy?idBook=@Html.DisplayFor(modelItem => item.idBook)&idUser=@Html.DisplayFor(modelItem => item.idUser)"
+               class="btn btn-primary">@Html.DisplayFor(modelItem => item.firstname) @Html.DisplayFor(modelItem => item.lastname)</a>
+        </div>
+    </div>
+}
